@@ -43,7 +43,7 @@ burn_in_test <- 2000
 
 
 cl<-makeCluster(3)
-clusterExport(cl, c("R2", "S", "R", "X", "D", "M", "imp", "lasso.new", "ridge", "horseshoe", "Nsample_test", 
+clusterExport(cl, c("R2", "S", "R", "X", "D", "M", "imp", "lasso.new", "ridge","ridge.new" , "horseshoe", "Nsample_test", 
                     "burn_in_test", "Sigma", "generate.latent.lapply"))
 clusterEvalQ(cl, {library(truncnorm)
   library(extraDistr)
@@ -58,7 +58,7 @@ imp_res <-unlist(parLapply(cl, D:M, function(step){
 
 ridge_res <-unlist(parLapply(cl, D:M, function(step){
   R <- c(R2[1:step],rep(2,M-step))
-  res <- ridge(S, R, X, Sigma, Nsample = Nsample_test, burn_in = burn_in_test)
+  res <- ridge.new(S, R, X, Sigma, Nsample = Nsample_test, burn_in = burn_in_test)
   mean(res$Beta)
 } ))
 
@@ -80,7 +80,7 @@ stopCluster(cl)
 
 # Save the results ----
 
-save(list = c("imp_res", "ridge_res", "lasso_res", "hs_res"), file = "results_simple_exmpl_newlasso.Rdata")
+save(list = c("imp_res", "ridge_res", "lasso_res", "hs_res"), file = "results_simple_exmpl_correct.Rdata")
 
 
 # Vizz ----
