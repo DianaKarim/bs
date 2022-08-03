@@ -1,3 +1,4 @@
 # bs
 Bayesian shrinkage models for longitudinal network data
-Set of functions necessary to obtain estimates
+
+R codes for analyzing empirical examples for Apollo 13 mission voice loops, Enron email data, and proximity sensors data.
